@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# 上传/标注图片（真实人体照片，隐私数据，勿提交）
+backend/uploads/
+backend/static/annotations/
+backend/test1.jpeg
+backend/test2.jpeg
+
+# 数据库原始导出（含真实账号与密码哈希，勿提交）
+body_measurement.sql
+
+# 小程序私有配置
+miniprogram/project.private.config.json
+
+# 内部工作目录
+.superpowers/
+docs/
+
+# 系统
+.DS_Store
+Thumbs.db

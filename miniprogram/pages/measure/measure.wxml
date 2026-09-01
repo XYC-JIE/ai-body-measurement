@@ -1,0 +1,63 @@
+<view class="container">
+  <view class="camera-container" wx:if="{{showCamera}}">
+    <camera device-position="back" flash="off" style="width:100%;height:70%;" binderror="cameraError"></camera>
+    <view class="camera-controls">
+      <button class="camera-btn close" bindtap="closeCamera">取消</button>
+      <button class="camera-btn take-photo" bindtap="takePhoto">拍照</button>
+    </view>
+    <view class="camera-instruction">{{currentPhotoType === 'front' ? '请拍摄正面全身照' : '请拍摄侧面全身照'}}</view>
+  </view>
+
+  <view class="content" wx:if="{{!showCamera}}">
+    <view class="hero">
+      <text class="hero-title">AI 身体测量</text>
+      <text class="hero-sub">正面照 + 侧面照，智能还原 33 项身体尺寸</text>
+    </view>
+
+    <view class="card form">
+      <view class="input-group">
+        <text class="label">身高 (cm)</text>
+        <input class="input-field" type="digit" placeholder="请输入您的身高" bindinput="onHeightInput" value="{{height}}" />
+      </view>
+
+      <view class="photo-section">
+        <text class="section-title">照片上传</text>
+        <view class="photo-upload">
+          <view class="upload-item">
+            <text class="upload-label">正面照片</text>
+            <view class="upload-box" bindtap="onImageSelect" data-type="front">
+              <image wx:if="{{frontImage}}" src="{{frontImage}}" mode="aspectFit" class="preview-image" />
+              <view wx:else class="upload-placeholder"><text class="upload-plus">+</text><text class="upload-text">点击上传</text></view>
+            </view>
+          </view>
+          <view class="upload-item">
+            <text class="upload-label">侧面照片</text>
+            <view class="upload-box" bindtap="onImageSelect" data-type="side">
+              <image wx:if="{{sideImage}}" src="{{sideImage}}" mode="aspectFit" class="preview-image" />
+              <view wx:else class="upload-placeholder"><text class="upload-plus">+</text><text class="upload-text">点击上传</text></view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="guide-section">
+        <view class="guide-header" bindtap="toggleGuide">
+          <text class="guide-title">拍摄指南</text>
+          <text class="guide-arrow">{{showGuide ? '▲' : '▼'}}</text>
+        </view>
+        <view class="guide-content" wx:if="{{showGuide}}">
+          <view class="guide-item" wx:for="{{guideSteps}}" wx:key="index">
+            <text class="guide-number">{{index + 1}}</text>
+            <view class="guide-text">
+              <text class="guide-subtitle">{{item.title}}</text>
+              <text class="guide-desc">{{item.content}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <button class="btn-primary measure-btn" bindtap="handleMeasure" loading="{{measuring}}" disabled="{{!height || !frontImage || !sideImage || measuring}}">{{measuring ? '测量中...' : '开始测量'}}</button>
+      <button class="btn-ghost clear-btn" bindtap="clearData">清除数据</button>
+    </view>
+  </view>
+</view>

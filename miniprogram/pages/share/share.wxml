@@ -1,0 +1,66 @@
+<!-- share.wxml -->
+<view class="container">
+  <!-- 顶部导航栏 -->
+  <view class="navbar">
+    <view class="back-btn" bindtap="navigateBack">←</view>
+    <view class="title">发布文章</view>
+    <view class="publish-btn" bindtap="handleShare">发送</view>
+  </view>
+
+  <!-- 输入框 -->
+  <textarea 
+    class="thought-input" 
+    placeholder="这一刻的想法..."
+    value="{{thought}}"
+    bindinput="onInputThought"
+    maxlength="500"
+  ></textarea>
+  <view class="char-count">{{thought.length}}/500</view>
+
+  <!-- 图片上传区域 -->
+  <view class="image-upload">
+    <view class="upload-btn" bindtap="chooseImage">
+      <text class="icon">📷</text>
+      <text>添加图片({{images.length}}/9)</text>
+    </view>
+    <view class="image-preview">
+      <block wx:for="{{images}}" wx:key="index">
+        <view class="preview-item">
+          <image src="{{item}}" mode="aspectFill" class="preview-img" bindtap="previewImage" data-index="{{index}}"></image>
+          <view class="delete-img" bindtap="deleteImage" data-index="{{index}}">×</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 文章列表 -->
+  <view class="article-list" wx:if="{{showList}}">
+    <view class="list-header">
+      <text>我的文章</text>
+      <view class="close-list" bindtap="toggleList">关闭</view>
+    </view>
+    <scroll-view class="list-content" scroll-y>
+      <block wx:for="{{articles}}" wx:key="id">
+        <view class="article-item">
+          <view class="article-content">{{item.content}}</view>
+          <view class="article-images" wx:if="{{item.images && item.images.length}}">
+            <image wx:for="{{item.images}}" wx:for-item="img" src="{{img}}" mode="aspectFill"></image>
+          </view>
+          <view class="article-meta">
+            <text>{{item.created_at}}</text>
+            <view class="article-actions">
+              <text class="edit-btn" bindtap="editArticle" data-id="{{item.id}}">编辑</text>
+              <text class="delete-btn" bindtap="deleteArticle" data-id="{{item.id}}">删除</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view wx:if="{{articles.length === 0}}" class="empty-tip">暂无文章</view>
+    </scroll-view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-actions">
+    <view class="view-articles-btn" bindtap="toggleList">查看我的文章</view>
+  </view>
+</view>

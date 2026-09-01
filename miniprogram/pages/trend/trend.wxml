@@ -1,0 +1,12 @@
+<view class="container">
+  <scroll-view scroll-x class="chip-row">
+    <text wx:for="{{metrics}}" wx:key="key" class="chip {{current === item.key ? 'active' : ''}}" bindtap="switchMetric" data-key="{{item.key}}">{{item.label}}</text>
+  </scroll-view>
+  <view class="card chart-card">
+    <canvas type="2d" id="trendCanvas" class="trend-canvas"></canvas>
+  </view>
+  <view class="card latest-card">
+    <text class="latest-label">最近一次</text>
+    <text class="latest-value">{{latestValue}} cm</text>
+  </view>
+</view>

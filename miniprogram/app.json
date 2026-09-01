@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/measure/measure",
+    "pages/trend/trend",
+    "pages/profile/profile",
+    "pages/result/result",
+    "pages/user/user",
+    "pages/update-user-info/update-user-info",
+    "pages/update-password/update-password",
+    "pages/bmi/bmi",
+    "pages/clothing-size-recommendation/clothing-size-recommendation",
+    "pages/square/square",
+    "pages/share/share"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F5F8FA",
+    "navigationBarTitleText": "AI身体测量",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.camera": {
+      "desc": "请允许使用摄像头进行身体测量拍照"
+    }
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#9CA3AF",
+    "selectedColor": "#2BB3A3",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/measure/measure", "text": "AI首页" },
+      { "pagePath": "pages/result/result", "text": "报告" },
+      { "pagePath": "pages/user/user", "text": "我的" }
+    ]
+  }
+}

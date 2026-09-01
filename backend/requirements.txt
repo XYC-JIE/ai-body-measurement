@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+sqlalchemy
+pymysql
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+pydantic-settings
+opencv-python
+mediapipe
+numpy
+python-multipart

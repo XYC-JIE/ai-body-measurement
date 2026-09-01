@@ -1,0 +1,9 @@
+.container { min-height: 100vh; background: var(--bg); padding: 24rpx; }
+.chip-row { white-space: nowrap; margin-bottom: 20rpx; }
+.chip { display: inline-block; padding: 12rpx 30rpx; margin-right: 16rpx; border-radius: 30rpx; background: #E2E8F0; color: var(--text-2); font-size: 26rpx; }
+.chip.active { background: var(--primary-gradient); color: #fff; }
+.chart-card { padding: 20rpx; }
+.trend-canvas { width: 100%; height: 500rpx; }
+.latest-card { margin-top: 20rpx; display: flex; justify-content: space-between; align-items: center; }
+.latest-label { font-size: 28rpx; color: var(--text-2); }
+.latest-value { font-size: 36rpx; font-weight: 700; color: var(--primary); }

@@ -1,0 +1,120 @@
+<!-- 页面结构 -->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="header">
+    <text class="title">BMI 计算器</text>
+    <text class="subtitle">计算您的身体质量指数</text>
+  </view>
+
+  <!-- 输入表单 -->
+  <view class="input-group">
+    <text class="label">身高 (cm)</text>
+    <input 
+      type="number" 
+      placeholder="请输入身高" 
+      value="{{height}}"
+      bindinput="onHeightInput"
+      class="input"
+    />
+  </view>
+
+  <view class="input-group">
+    <text class="label">体重 (kg)</text>
+    <input 
+      type="number" 
+      placeholder="请输入体重" 
+      value="{{weight}}"
+      bindinput="onWeightInput"
+      class="input"
+    />
+  </view>
+
+  <!-- 计算按钮 -->
+  <button bindtap="calculateBMI" class="calculate-btn" loading="{{isLoading}}">计算 BMI</button>
+
+  <!-- 结果显示区域 -->
+  <view class="result-container {{bmiResult ? 'show' : ''}}">
+    <text class="result-title">您的 BMI 结果</text>
+    <text class="bmi-value">{{bmiResult}}</text>
+    <text class="bmi-category {{categoryClass}}">{{bmiCategory}}</text>
+    
+    <!-- 可视化指示器 -->
+    <view class="bmi-scale">
+      <view class="scale-bar">
+        <view class="indicator" style="left: {{indicatorPosition + '%'}};">
+          <view class="indicator-line"></view>
+          <view class="indicator-dot"></view>
+        </view>
+      </view>
+      <view class="scale-labels">
+        <text>偏瘦</text>
+        <text>正常</text>
+        <text>过重</text>
+        <text>肥胖</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 健康分类说明 -->
+  <view class="info-box">
+    <text class="info-title">BMI 分类标准</text>
+    <view class="info-item">
+      <view class="color-box underweight"></view>
+      <text>偏瘦：小于 18.5</text>
+    </view>
+    <view class="info-item">
+      <view class="color-box normal"></view>
+      <text>正常：18.5 - 23.9</text>
+    </view>
+    <view class="info-item">
+      <view class="color-box overweight"></view>
+      <text>过重：24 - 27.9</text>
+    </view>
+    <view class="info-item">
+      <view class="color-box obese"></view>
+      <text>肥胖：28 及以上</text>
+    </view>
+  </view>
+
+  <!-- 历史记录 -->
+  <view class="history-section" wx:if="{{history.length > 0}}">
+    <text class="history-title">历史记录</text>
+    <view class="history-list">
+      <view class="history-item" wx:for="{{history}}" wx:key="id">
+        <view class="history-info">
+          <view class="history-row">
+            <text class="history-label">身高:</text>
+            <text class="history-value">{{item.height}} cm</text>
+          </view>
+          <view class="history-row">
+            <text class="history-label">体重:</text>
+            <text class="history-value">{{item.weight}} kg</text>
+          </view>
+          <view class="history-row">
+            <text class="history-label">BMI:</text>
+            <text class="history-value">{{item.bmi}}</text>
+          </view>
+          <view class="history-row">
+            <text class="history-label">分类:</text>
+            <text class="history-value {{item.categoryClass}}">{{item.category}}</text>
+          </view>
+          <view class="history-row">
+            <text class="history-label">日期:</text>
+            <text class="history-value">{{item.created_at}}</text>
+          </view>
+        </view>
+        <view class="delete-btn" bindtap="deleteHistoryItem" data-id="{{item.record_id}}">
+          <text class="icon">×</text>
+        </view>
+      </view>
+    </view>
+    <view class="clear-history" bindtap="clearAllHistory">
+      <text>清除所有记录</text>
+    </view>
+  </view>
+
+  <!-- 加载提示 -->
+  <view wx:if="{{isLoading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+</view>

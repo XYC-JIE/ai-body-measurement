@@ -1,0 +1,74 @@
+/* app.wxss —— 全局设计 token 与基础类 */
+page {
+  --primary: #2BB3A3;
+  --primary-dark: #1FA38F;
+  --primary-gradient: linear-gradient(135deg, #2BB3A3 0%, #38BDF8 100%);
+  --bg: #F5F8FA;
+  --card: #FFFFFF;
+  --text-1: #1F2937;
+  --text-2: #6B7280;
+  --text-3: #9CA3AF;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --radius-lg: 24rpx;
+  --radius-md: 16rpx;
+  --radius-sm: 12rpx;
+  --shadow: 0 8rpx 30rpx rgba(31, 41, 55, 0.06);
+  background-color: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+  color: var(--text-1);
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 30rpx;
+}
+
+.btn-primary {
+  background: var(--primary-gradient);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 32rpx;
+  font-weight: 600;
+  height: 96rpx;
+  line-height: 96rpx;
+}
+
+.btn-primary[disabled] {
+  background: #CBD5E1;
+  color: #fff;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-2);
+  border: 1rpx solid #E2E8F0;
+  border-radius: var(--radius-md);
+  font-size: 30rpx;
+  height: 92rpx;
+  line-height: 92rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--text-1);
+  display: block;
+  margin-bottom: 24rpx;
+}
+
+.input-field {
+  width: 100%;
+  height: 88rpx;
+  background: var(--card);
+  border: 1rpx solid #E2E8F0;
+  border-radius: var(--radius-sm);
+  padding: 0 24rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  color: var(--text-1);
+}

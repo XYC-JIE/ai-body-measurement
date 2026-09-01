@@ -1,0 +1,6 @@
+.container { min-height: 100vh; background: var(--bg); padding: 24rpx; }
+.field { margin-bottom: 32rpx; }
+.label { display: block; margin-bottom: 16rpx; font-size: 28rpx; color: var(--text-2); }
+.gender-row { display: flex; gap: 20rpx; }
+.gender-item { flex: 1; text-align: center; padding: 20rpx; border-radius: var(--radius-md); background: #F1F5F9; color: var(--text-2); font-size: 30rpx; }
+.gender-item.active { background: var(--primary-gradient); color: #fff; }

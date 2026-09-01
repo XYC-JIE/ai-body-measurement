@@ -1,0 +1,82 @@
+<view class="container">
+  <view class="header">
+    <view class="title">服装尺码推荐</view>
+    <view class="subtitle">根据您的身体尺寸智能匹配</view>
+  </view>
+
+  <view class="tabs">
+    <view 
+      class="tab {{currentTab === 'top' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="top"
+    >
+      上衣
+    </view>
+    <view 
+      class="tab {{currentTab === 'bottom' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="bottom"
+    >
+      下装
+    </view>
+    <view 
+      class="tab {{currentTab === 'dress' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="dress"
+    >
+      连衣裙
+    </view>
+  </view>
+
+  <view class="content">
+    <!-- 推荐结果 -->
+    <view class="recommendation-card">
+      <view class="card-header">
+        <text class="recommended-size">推荐尺码: {{recommendedSize}}</text>
+        <view class="match-rate">
+          <text>匹配度: </text>
+          <text class="percentage">{{matchPercentage}}%</text>
+        </view>
+      </view>
+
+      <view class="size-details">
+        <view class="detail-item" wx:for="{{sizeDetails}}" wx:key="name">
+          <text class="detail-name">{{item.name}}</text>
+          <text class="detail-value">{{item.value}}cm</text>
+          <text class="detail-range">{{item.range}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 匹配度可视化 -->
+    <view class="visualization">
+      <view class="viz-title">尺寸匹配度</view>
+      <view class="viz-item" wx:for="{{matchDetails}}" wx:key="name">
+        <view class="viz-header">
+          <text class="viz-name">{{item.name}}</text>
+          <text class="viz-percent">{{item.percent}}%</text>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{item.percent + '%'}};"></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 尺码表 -->
+    <view class="size-chart">
+      <view class="chart-title">尺码对照表 ({{currentTab === 'top' ? '上衣' : currentTab === 'bottom' ? '下装' : '连衣裙'}})</view>
+      <view class="chart-header">
+        <text>尺码</text>
+        <text wx:for="{{chartHeaders[currentTab]}}" wx:key="index">{{item}}</text>
+      </view>
+      <view class="chart-row {{item.size === recommendedSize ? 'recommended' : ''}}" wx:for="{{sizeChart[currentTab]}}" wx:key="size">
+        <text class="size-label">{{item.size}}{{item.size === recommendedSize ? ' (推荐)' : ''}}</text>
+        <text wx:for="{{item.measurements}}" wx:key="index">{{item}}cm</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="actions">
+    <button class="btn secondary" bindtap="navigateBack">返回详情</button>
+  </view>
+</view>

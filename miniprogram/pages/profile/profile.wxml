@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="card">
+    <view class="field">
+      <text class="label">性别</text>
+      <view class="gender-row">
+        <text class="gender-item {{gender==='male' ? 'active' : ''}}" bindtap="setGender" data-g="male">男</text>
+        <text class="gender-item {{gender==='female' ? 'active' : ''}}" bindtap="setGender" data-g="female">女</text>
+      </view>
+    </view>
+    <view class="field">
+      <text class="label">年龄</text>
+      <input class="input-field" type="number" placeholder="请输入年龄" value="{{age}}" bindinput="onAgeInput" />
+    </view>
+    <view class="field">
+      <text class="label">体重 (kg)</text>
+      <input class="input-field" type="digit" placeholder="请输入体重" value="{{weight}}" bindinput="onWeightInput" />
+    </view>
+    <button class="btn-primary" bindtap="save" loading="{{saving}}">保存</button>
+  </view>
+</view>

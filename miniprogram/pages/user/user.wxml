@@ -1,0 +1,52 @@
+<view wx:if="{{userId}}" class="container">
+  <view class="header-card">
+    <view class="avatar">{{userInfo.username ? userInfo.username[0] : 'U'}}</view>
+    <view class="user-meta">
+      <text class="username">{{userInfo.username}}</text>
+      <text class="join-date">注册于 {{userInfo.created_at}}</text>
+    </view>
+  </view>
+
+  <view class="card profile-card" bindtap="navigateToProfile">
+    <text class="section-title">身体档案</text>
+    <view class="profile-row">
+      <text class="profile-item">性别：{{profile.gender === 'male' ? '男' : profile.gender === 'female' ? '女' : '未设置'}}</text>
+      <text class="profile-item">年龄：{{profile.age || '--'}}</text>
+      <text class="profile-item">体重：{{profile.weight ? profile.weight + ' kg' : '--'}}</text>
+    </view>
+  </view>
+
+  <view class="card stats-card">
+    <view class="stats-item"><text class="stats-num">{{measurementCount}}</text><text class="stats-label">测量次数</text></view>
+  </view>
+
+  <view class="card menu-list">
+    <view class="menu-item" bindtap="navigateToProfile"><text>身体档案</text><text class="arrow">›</text></view>
+    <view class="menu-item" bindtap="updateUserName"><text>修改个人信息</text><text class="arrow">›</text></view>
+    <view class="menu-item" bindtap="updatePassword"><text>修改密码</text><text class="arrow">›</text></view>
+    <view class="menu-item" bindtap="bmiCalculate"><text>BMI 计算</text><text class="arrow">›</text></view>
+  </view>
+
+  <button class="btn-ghost logout-btn" bindtap="handleLogout">退出登录</button>
+</view>
+
+<view wx:if="{{!userId && !showRegister}}" class="auth-container">
+  <view class="auth-hero"><text class="auth-title">AI 身体测量</text><text class="auth-sub">登录后开启智能测量</text></view>
+  <view class="card">
+    <input class="input-field auth-input" placeholder="用户名" bindinput="onUsernameInput" value="{{username}}" />
+    <input class="input-field auth-input" password placeholder="密码" bindinput="onPasswordInput" value="{{password}}" />
+    <button class="btn-primary" bindtap="handleLogin">登录</button>
+    <view class="register-link" bindtap="goToRegister">还没有账号？点击注册</view>
+  </view>
+</view>
+
+<view wx:if="{{!userId && showRegister}}" class="auth-container">
+  <view class="auth-hero"><text class="auth-title">创建账号</text><text class="auth-sub">注册后保存测量数据</text></view>
+  <view class="card">
+    <input class="input-field auth-input" placeholder="用户名" bindinput="onUsernameInput" value="{{username}}" />
+    <input class="input-field auth-input" password placeholder="密码" bindinput="onPasswordInput" value="{{password}}" />
+    <input class="input-field auth-input" password placeholder="确认密码" bindinput="onConfirmPasswordInput" value="{{confirmPassword}}" />
+    <button class="btn-primary" bindtap="handleRegister">注册</button>
+    <view class="register-link" bindtap="goToLogin">已有账号？点击登录</view>
+  </view>
+</view>

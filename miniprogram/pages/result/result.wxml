@@ -1,0 +1,95 @@
+<view class="container">
+  <view class="history-container" wx:if="{{!showDetails}}">
+    <view class="header"><text class="title">测量记录</text></view>
+    <view class="history-list">
+      <view class="measurement-card" wx:for="{{measurements}}" wx:key="id" bindtap="selectMeasurement" data-index="{{index}}">
+        <view class="card-main">
+          <text class="card-date">{{item.created_at}}</text>
+          <text class="card-height">身高 {{item.height}} cm</text>
+        </view>
+        <text class="card-arrow">›</text>
+      </view>
+      <view wx:if="{{measurements.length === 0}}" class="empty">暂无测量记录</view>
+    </view>
+  </view>
+
+  <view class="details-container" wx:else>
+    <view class="details-header"><text class="details-title">测量报告</text></view>
+    <scroll-view scroll-y class="details-scroll">
+      <view class="images-tabs">
+        <text class="img-tab {{showImages && currentImg==='front' ? 'active' : ''}}" bindtap="setFrontImg">正面</text>
+        <text class="img-tab {{showImages && currentImg==='side' ? 'active' : ''}}" bindtap="setSideImg">侧面</text>
+      </view>
+      <view class="image-section" wx:if="{{showImages}}">
+        <view class="image-frame" bindtap="previewImage" data-url="{{currentImg === 'side' ? sideAnnotatedUrl : frontAnnotatedUrl}}">
+          <image src="{{currentImg === 'side' ? sideAnnotatedUrl : frontAnnotatedUrl}}" mode="aspectFit" class="annotated-image" />
+        </view>
+        <view class="image-tip">点击图片放大</view>
+      </view>
+
+      <view class="card body-shape-card" wx:if="{{bodyShape}}">
+        <text class="section-title">体型分析</text>
+        <text class="body-shape-name">{{bodyShape.name}}</text>
+        <text class="body-shape-advice">{{bodyShape.advice}}</text>
+      </view>
+
+      <view class="card health-card" wx:if="{{healthMetrics}}">
+        <text class="section-title">健康解读</text>
+        <view class="metric-grid">
+          <view class="metric-item"><text class="metric-value">{{healthMetrics.bmi || '--'}}</text><text class="metric-label">BMI</text></view>
+          <view class="metric-item"><text class="metric-value">{{healthMetrics.whr || '--'}}</text><text class="metric-label">腰臀比</text></view>
+          <view class="metric-item"><text class="metric-value">{{healthMetrics.bodyFat || '--'}}</text><text class="metric-label">体脂率%</text></view>
+        </view>
+        <text class="health-note" wx:if="{{healthMetrics.idealWeightMin}}">理想体重 {{healthMetrics.idealWeightMin}} – {{healthMetrics.idealWeightMax}} kg</text>
+      </view>
+
+      <view class="category-list" wx:if="{{!showImages}}">
+        <view class="category">
+          <view class="category-title" bindtap="toggleCategory" data-cat="upperBody">
+            <text>上身尺寸</text><text class="cat-arrow">{{categoryOpen.upperBody ? '▲' : '▼'}}</text>
+          </view>
+          <view class="result-list" wx:if="{{categoryOpen.upperBody}}">
+            <view class="result-item" wx:for="{{categories.upperBody.items}}" wx:key="parameter_name">
+              <text class="item-name">{{item.parameter_name}}</text>
+              <text class="item-value">{{item.value}} cm</text>
+            </view>
+          </view>
+        </view>
+        <view class="category">
+          <view class="category-title" bindtap="toggleCategory" data-cat="lowerBody">
+            <text>下身尺寸</text><text class="cat-arrow">{{categoryOpen.lowerBody ? '▲' : '▼'}}</text>
+          </view>
+          <view class="result-list" wx:if="{{categoryOpen.lowerBody}}">
+            <view class="result-item" wx:for="{{categories.lowerBody.items}}" wx:key="parameter_name">
+              <text class="item-name">{{item.parameter_name}}</text>
+              <text class="item-value">{{item.value}} cm</text>
+            </view>
+          </view>
+        </view>
+        <view class="category">
+          <view class="category-title" bindtap="toggleCategory" data-cat="waist">
+            <text>腰部尺寸</text><text class="cat-arrow">{{categoryOpen.waist ? '▲' : '▼'}}</text>
+          </view>
+          <view class="result-list" wx:if="{{categoryOpen.waist}}">
+            <view class="result-item" wx:for="{{categories.waist.items}}" wx:key="parameter_name">
+              <text class="item-name">{{item.parameter_name}}</text>
+              <text class="item-value">{{item.value}} cm</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="trend-entry card" bindtap="navigateToTrend">
+        <text>查看身体数据趋势</text><text class="arrow">›</text>
+      </view>
+
+      <view class="button-group">
+        <button class="btn-primary" bindtap="toggleDetails">{{showImages ? '查看详细尺寸' : '返回关键点图'}}</button>
+        <button class="btn-ghost" bindtap="navigateToRecommendation">服装尺码推荐</button>
+        <button class="btn-ghost" bindtap="generateReportCard">生成报告卡片</button>
+        <button class="btn-ghost" bindtap="backToList">返回列表</button>
+      </view>
+      <canvas type="2d" id="reportCanvas" style="position: fixed; left: -9999px; top: 0; width: 600rpx; height: 900rpx;"></canvas>
+    </scroll-view>
+  </view>
+</view>

@@ -1,0 +1,41 @@
+<view class="container">
+  <!-- 头部标题 -->
+  <view class="header">
+    <text class="title">修改用户名</text>
+  </view>
+  
+  <!-- 当前用户信息 -->
+  <view class="info-group">
+    <text class="label">当前用户名</text>
+    <text class="value">{{currentUsername}}</text>
+  </view>
+  
+  <!-- 新用户名输入 -->
+  <view class="input-group">
+    <text class="label">新用户名</text>
+    <input 
+      class="input" 
+      type="text" 
+      placeholder="请输入新用户名" 
+      placeholder-class="placeholder"
+      value="{{newUsername}}"
+      bindinput="onUsernameInput"
+      maxlength="16"
+    />
+    <text class="tip">2-16个字符，可由中英文、数字组成</text>
+  </view>
+  
+  <!-- 错误提示 -->
+  <view class="error" wx:if="{{errorMsg}}">
+    <text>{{errorMsg}}</text>
+  </view>
+  
+  <!-- 提交按钮 -->
+  <button 
+    class="submit-btn" 
+    bindtap="updateUsername"
+    disabled="{{!newUsername || isUpdating}}"
+  >
+    {{isUpdating ? '更新中...' : '确认修改'}}
+  </button>
+</view>
